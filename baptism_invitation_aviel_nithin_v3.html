@@ -1,0 +1,204 @@
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  .page { font-family: 'Georgia', serif; background: #f4f1eb; color: #1a1a1a; padding: 1.5rem 1rem 3rem; }
+  .inv-wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+
+  .hero-band { background: linear-gradient(160deg, #1a3a2e 0%, #0f2419 100%); border-radius: 16px; padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero-band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%); pointer-events: none; }
+  .cross-icon { width: 30px; height: 30px; margin: 0 auto 1rem; opacity: 0.65; display: block; }
+  .hero-sub { font-family: Arial, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.5rem; }
+  .hero-name { font-size: clamp(38px, 8vw, 54px); font-weight: 300; font-style: italic; color: #e8d9b4; line-height: 1; margin-bottom: 1rem; }
+  .hero-divider { display: flex; align-items: center; gap: 12px; max-width: 200px; margin: 0 auto 1rem; }
+  .hero-divider span { flex: 1; height: 0.5px; background: rgba(255,255,255,0.15); }
+  .hero-tagline { font-size: clamp(13px, 3vw, 15px); font-weight: 300; font-style: italic; color: rgba(255,255,255,0.48); line-height: 1.75; }
+
+  .card { background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 1.75rem; }
+  .card-label { font-family: Arial, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #888; margin-bottom: 1.25rem; }
+
+  .date-row { display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+  .date-block { text-align: center; flex: 1; min-width: 0; }
+  .date-block .num { font-size: clamp(34px, 8vw, 52px); font-weight: 300; color: #1a3a2e; line-height: 1; }
+  .date-block .num sup { font-size: clamp(16px, 4vw, 22px); }
+  .date-block .lbl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #999; margin-top: 4px; }
+  .date-sep { width: 0.5px; height: 52px; background: rgba(0,0,0,0.1); margin: 0 1rem; flex-shrink: 0; }
+
+  .venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .venue-item { background: #f7f5f0; border-radius: 10px; padding: 1rem; }
+  .venue-time { font-family: Arial, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #999; margin-bottom: 5px; }
+  .venue-name { font-size: clamp(15px, 3vw, 17px); font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .venue-place { font-family: Arial, sans-serif; font-size: 12px; color: #777; line-height: 1.5; }
+  .map-link { display: inline-flex; align-items: center; gap: 4px; font-family: Arial, sans-serif; font-size: 11px; font-weight: 500; color: #1a6b45; text-decoration: none; margin-top: 8px; }
+  .map-link:hover { text-decoration: underline; }
+
+  .countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .cd-unit { text-align: center; background: #f7f5f0; border-radius: 10px; padding: 1rem 0.5rem 0.75rem; }
+  .cd-num { font-size: clamp(24px, 6vw, 34px); font-weight: 300; color: #1a3a2e; line-height: 1; display: block; }
+  .cd-lbl { font-family: Arial, sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #999; margin-top: 5px; display: block; }
+
+  .rsvp-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .rsvp-h { font-size: clamp(18px, 4vw, 22px); font-weight: 400; color: #1a1a1a; margin-bottom: 3px; }
+  .rsvp-sub { font-family: Arial, sans-serif; font-size: 13px; color: #888; line-height: 1.5; }
+  .wa-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; background: #1a3a2e; color: #fff; border-radius: 100px; text-decoration: none; font-family: Arial, sans-serif; font-size: 13px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+  .wa-btn:hover { opacity: 0.85; }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gallery-item { position: relative; overflow: hidden; border-radius: 12px; background: #ddd; aspect-ratio: 1 / 1; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease, filter 0.3s ease; }
+  .gallery-item:hover img { transform: scale(1.06); filter: brightness(0.9); }
+  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 60%); opacity: 0; transition: opacity 0.3s ease; }
+  .gallery-item:hover::after { opacity: 1; }
+
+  .inv-footer { text-align: center; font-family: Arial, sans-serif; font-size: 11px; color: #bbb; letter-spacing: 0.08em; padding-top: 1rem; }
+
+  @media (max-width: 480px) {
+    .page { padding: 1rem 0.75rem 2.5rem; }
+    .card { padding: 1.25rem; }
+    .hero-band { padding: 2.5rem 1.25rem 2rem; }
+    .venue-grid { grid-template-columns: 1fr; }
+    .rsvp-inner { flex-direction: column; align-items: flex-start; }
+    .wa-btn { width: 100%; justify-content: center; }
+    .date-sep { margin: 0 0.5rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  }
+</style>
+
+<div class="page">
+<div class="inv-wrap">
+
+  <div class="hero-band">
+    <svg class="cross-icon" viewBox="0 0 32 32" fill="none">
+      <rect x="13.5" y="2" width="5" height="28" rx="1.5" fill="rgba(255,255,255,0.65)"/>
+      <rect x="4" y="10" width="24" height="5" rx="1.5" fill="rgba(255,255,255,0.65)"/>
+    </svg>
+    <p class="hero-sub">Baptism Invitation</p>
+    <h1 class="hero-name">Aviel Nithin</h1>
+    <div class="hero-divider">
+      <span></span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="2" fill="rgba(255,255,255,0.55)"/>
+        <circle cx="6" cy="1.5" r="0.9" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="6" cy="10.5" r="0.9" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="1.5" cy="6" r="0.9" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="10.5" cy="6" r="0.9" fill="rgba(255,255,255,0.3)"/>
+      </svg>
+      <span></span>
+    </div>
+    <p class="hero-tagline">A precious moment where faith begins,<br>and a new journey with God unfolds</p>
+  </div>
+
+  <div class="card">
+    <p class="card-label">Date &amp; Venue</p>
+    <div class="date-row">
+      <div class="date-block"><div class="num">18</div><div class="lbl">April</div></div>
+      <div class="date-sep"></div>
+      <div class="date-block"><div class="num">2026</div><div class="lbl">Year</div></div>
+      <div class="date-sep"></div>
+      <div class="date-block"><div class="num">4<sup>pm</sup></div><div class="lbl">Saturday</div></div>
+    </div>
+    <div class="venue-grid">
+      <div class="venue-item">
+        <div class="venue-time">4:00 pm — Ceremony</div>
+        <div class="venue-name">St. Thomas Church</div>
+        <div class="venue-place">Melukaumattom</div>
+        <a class="map-link" href="https://maps.app.goo.gl/GugqWPJXNLDYj58z7" target="_blank">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1C4.07 1 2.5 2.57 2.5 4.5c0 2.62 3.5 6.5 3.5 6.5s3.5-3.88 3.5-6.5C9.5 2.57 7.93 1 6 1zm0 4.75a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" fill="currentColor"/></svg>
+          View on map
+        </a>
+      </div>
+      <div class="venue-item">
+        <div class="venue-time">6:00 pm — Reception</div>
+        <div class="venue-name">Maliyeckal Meadows</div>
+        <div class="venue-place">Neeloor</div>
+        <a class="map-link" href="https://maps.app.goo.gl/Z6bKqjBu7P8uqv8v8" target="_blank">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1C4.07 1 2.5 2.57 2.5 4.5c0 2.62 3.5 6.5 3.5 6.5s3.5-3.88 3.5-6.5C9.5 2.57 7.93 1 6 1zm0 4.75a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" fill="currentColor"/></svg>
+          View on map
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="card-label">Time remaining</p>
+    <div class="countdown-grid">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">–</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">–</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">–</span><span class="cd-lbl">Minutes</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">–</span><span class="cd-lbl">Seconds</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="rsvp-inner">
+      <div>
+        <div class="rsvp-h">You're invited</div>
+        <div class="rsvp-sub">Let us know you'll be joining<br>the celebration</div>
+      </div>
+      <a class="wa-btn" href="https://wa.me/918848181237?text=I%20will%20attend%20the%20baptism%20of%20Aviel%20Nithin" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 1C4.134 1 1 4.134 1 8c0 1.28.34 2.48.936 3.515L1 15l3.592-.915A7 7 0 108 1zm0 1.4a5.6 5.6 0 110 11.2 5.57 5.57 0 01-2.895-.805l-.207-.124-2.133.543.563-2.066-.135-.215A5.6 5.6 0 018 2.4zm-1.9 2.8c-.1-.226-.207-.23-.303-.234-.078-.003-.167-.003-.257-.003a.493.493 0 00-.358.168c-.123.135-.47.46-.47 1.12 0 .662.48 1.3.547 1.39.066.09.933 1.49 2.3 2.03 1.138.45 1.37.36 1.617.337.247-.023.797-.326.909-.64.112-.314.112-.583.078-.64-.034-.056-.123-.09-.257-.157s-.797-.393-.92-.438c-.123-.045-.213-.067-.302.067-.09.134-.347.437-.426.527-.079.09-.157.1-.291.034-.134-.067-.564-.208-1.074-.663-.397-.354-.665-.79-.743-.924-.079-.134-.008-.207.059-.273.061-.06.135-.157.202-.235.067-.079.09-.135.135-.224.045-.09.022-.168-.011-.235-.034-.067-.303-.73-.415-1z" fill="rgba(255,255,255,0.9)"/></svg>
+        Confirm on WhatsApp
+      </a>
+    </div>
+  </div>
+
+ <div class="card">
+  <p class="card-label">Moments Captured</p>
+  <div class="gallery-grid">
+
+    <div class="gallery-item"><img src="https://i.ibb.co/dqcbrH8/1.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/s8pfXXV/2.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/BHX9G3qJ/3.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/9kmXDS7m/4.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/MD856QtD/5.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/R4hxdJMP/6.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/21pQrkGT/7.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/ch3kKBnM/8.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/FbMJ5Wcd/9.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/p6p3QPNY/10.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/4Zh2dLpM/11.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/23FpHMqd/12.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/b5rx0ncL/13.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/g1VdQ4k/14.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/Ts3Q5MG/15.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/TX2j9vc/16.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/cfMtN8R/17.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/fzdKmhYV/18.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/YBkYqbvY/19.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/v6jKLKdC/20.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/1cqzmn8/21.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/0VCPkSHg/22.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/395hQSbg/23.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/tT0M5cCK/24.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/mFhB4zG5/25.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/RGYbWcyG/26.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/1frgMwW6/27.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/rR0CPvfS/28.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/HprPQ3H5/29.jpg"></div>
+    <div class="gallery-item"><img src="https://i.ibb.co/Y7Q8zyHP/30.jpg"></div>
+
+  </div>
+</div>
+
+  <p class="inv-footer">With love &amp; blessings, Nithin &amp; Mariya <br>&nbsp;·&nbsp; © 2026 Bastin Prasad</p>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var target = new Date("April 18, 2026 16:00:00").getTime();
+  function tick() {
+    var gap = target - Date.now();
+    if (gap <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(function(id){ document.getElementById(id).textContent = '0'; });
+      return;
+    }
+    document.getElementById('cd-d').textContent = Math.floor(gap / 86400000);
+    document.getElementById('cd-h').textContent = Math.floor((gap % 86400000) / 3600000);
+    document.getElementById('cd-m').textContent = Math.floor((gap % 3600000) / 60000);
+    document.getElementById('cd-s').textContent = Math.floor((gap % 60000) / 1000);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
